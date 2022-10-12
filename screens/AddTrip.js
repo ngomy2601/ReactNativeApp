@@ -7,7 +7,7 @@ import {
   Button,
 } from 'react-native';
 
-const App = () => {
+const AddTrip = () => {
   return (
     <SafeAreaView>
       <Text style={styles.titleText}>ADD A NEW TRIP</Text>
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default AddTrip;

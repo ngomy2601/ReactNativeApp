@@ -7,10 +7,10 @@ import {
   Button,
 } from 'react-native';
 
-const App = () => {
+const UpdateTrip = () => {
   return (
     <SafeAreaView>
-      <Text style={styles.titleText}>ADD A NEW TRIP</Text>
+      <Text style={styles.titleText}>UPDATE TRIP</Text>
       <Text style={styles.baseText}>Trip Name:</Text>
       <TextInput style={styles.input} placeholder="Enter the trip name" />
       <Text style={styles.baseText}>Destination:</Text>
@@ -21,7 +21,7 @@ const App = () => {
       <TextInput style={styles.input} placeholder="Enter YES/NO" />
       <Text style={styles.baseText}>Description:</Text>
       <TextInput style={styles.input} placeholder="Enter the description" />
-      <Button title="Add" color="#0000ff" />
+      <Button title="UPDATE" color="#0000ff" />
     </SafeAreaView>
   );
 };
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default UpdateTrip;
