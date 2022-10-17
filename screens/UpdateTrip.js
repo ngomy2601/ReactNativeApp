@@ -60,7 +60,6 @@ const UpdateTrip = ({ route, navigation }) => {
   };
   return (
     <SafeAreaView>
-      <Text style={styles.titleText}>UPDATE TRIP</Text>
       <Text style={styles.baseText}>Trip Name:</Text>
       <TextInput
         style={styles.input}
