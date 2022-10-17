@@ -60,6 +60,19 @@ const Home = ({ navigation }) => {
         <Text>Datetime: {item.datetime}</Text>
         <Text>Require Assessment*: {item.trip_assessment}</Text>
         <Text>Description: {item.trip_description}</Text>
+        <Button
+          title="Update"
+          onPress={() =>
+            navigation.navigate('UpdateTrip', {
+              id: item._id,
+              name: item.trip_name,
+              destination: item.trip_destination,
+              datetime: item.datetime,
+              assessment: item.trip_assessment,
+              description: item.trip_description,
+            })
+          }
+        ></Button>
       </View>
     );
   };
