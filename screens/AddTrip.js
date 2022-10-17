@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import * as SQLite from 'expo-sqlite';
+import { Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,37 +9,50 @@ import {
   Button,
 } from 'react-native';
 
-const AddTrip = () => {
-  const [textInputName, setTextInputName] = useState('');
-  const [textInputDestination, settextInputDestination] = useState('');
-  const [textInputDate, settextInputDate] = useState('');
-  const [textInputAssessment, settextInputAssessment] = useState('');
-  const [textInputDescription, settextInputDescription] = useState('');
+const openDatabase = () => {
+  const myDB = SQLite.openDatabase('database.db');
+  return myDB;
+};
 
-  const checkTextInput = () => {
-    //Check for the TextInput
-    if (!textInputName.trim()) {
-      alert('Please Enter Name');
-      return;
-    }
+const myDB = openDatabase();
+const AddTrip = ({ navigation }) => {
+  let [textInputName, setTextInputName] = useState('');
+  let [textInputDestination, settextInputDestination] = useState('');
+  let [textInputDate, settextInputDate] = useState('');
+  let [textInputAssessment, settextInputAssessment] = useState('');
+  let [textInputDescription, settextInputDescription] = useState('');
 
-    if (!textInputDestination.trim()) {
-      alert('Please Enter Destination');
-      return;
-    }
-
-    if (!textInputDate.trim()) {
-      alert('Please Enter Date');
-      return;
-    }
-
-    if (!textInputAssessment.trim()) {
-      alert('Please Enter Yes/No');
-      return;
-    }
-    //Checked Successfully
-    //Do whatever you want
-    alert('Success');
+  const addTrip = () => {
+    myDB.transaction((tx) => {
+      tx.executeSql(
+        'INSERT INTO table_trip (trip_name, trip_destination, trip_datetime, trip_assessment, trip_description) VALUES (?,?,?,?,?)',
+        [
+          textInputName,
+          textInputDestination,
+          textInputDate,
+          textInputAssessment,
+          textInputDescription,
+        ],
+        (tx, results) => {
+          console.log('Results: ', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            Alert.alert(
+              'Success',
+              'Added Successfully',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Home'),
+                },
+              ],
+              { cancelable: false }
+            );
+          } else {
+            Alert.alert('Added failed!');
+          }
+        }
+      );
+    });
   };
   return (
     <SafeAreaView>
@@ -72,7 +87,7 @@ const AddTrip = () => {
         placeholder="Enter the description"
         onChangeText={(value) => settextInputDescription(value)}
       />
-      <Button title="Add" color="#0000ff" onPress={checkTextInput} />
+      <Button title="Add" color="#0000ff" onPress={addTrip} />
     </SafeAreaView>
   );
 };
