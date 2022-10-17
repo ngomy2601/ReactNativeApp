@@ -68,6 +68,29 @@ const Home = ({ navigation }) => {
       );
     });
   };
+
+  const deleteAllTrips = () => {
+    myDB.transaction((tx) => {
+      tx.executeSql('DELETE FROM table_trip', [], (tx, results) => {
+        console.log('Results', results.rowsAffected);
+        if (results.rowsAffected > 0) {
+          Alert.alert(
+            'Success',
+            'Deleted all successfully',
+            [
+              {
+                text: 'Ok',
+                onPress: () => navigation.navigate('Home'),
+              },
+            ],
+            { cancelable: false }
+          );
+        } else {
+          alert('Deleted failed!');
+        }
+      });
+    });
+  };
   let listViewItemSeparator = () => {
     return (
       <View
@@ -116,6 +139,7 @@ const Home = ({ navigation }) => {
         title="Add a new trip"
         onPress={() => navigation.navigate('AddTrip')}
       />
+      <Button title="Delete all trips" onPress={deleteAllTrips}></Button>
       <FlatList
         data={flatListItems}
         ItemSeparatorComponent={listViewItemSeparator}
