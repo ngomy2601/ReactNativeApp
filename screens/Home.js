@@ -1,4 +1,5 @@
 import * as SQLite from 'expo-sqlite';
+import { Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View, SafeAreaView, Button } from 'react-native';
 
@@ -40,6 +41,33 @@ const Home = ({ navigation }) => {
       });
     });
   };
+
+  const deleteTrip = (id) => {
+    myDB.transaction((tx) => {
+      tx.executeSql(
+        'DELETE FROM  table_trip where _id=?',
+        [id],
+        (tx, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            Alert.alert(
+              'Success',
+              'Deleted successfully',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Home'),
+                },
+              ],
+              { cancelable: false }
+            );
+          } else {
+            alert('Deleted failed!');
+          }
+        }
+      );
+    });
+  };
   let listViewItemSeparator = () => {
     return (
       <View
@@ -51,6 +79,7 @@ const Home = ({ navigation }) => {
       />
     );
   };
+
   let listItemView = (item) => {
     return (
       <View key={item._id} style={{ backgroundColor: 'white', padding: 20 }}>
@@ -73,6 +102,7 @@ const Home = ({ navigation }) => {
             })
           }
         ></Button>
+        <Button title="Delete" onPress={() => deleteTrip(item._id)}></Button>
       </View>
     );
   };
