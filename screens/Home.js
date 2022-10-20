@@ -30,7 +30,13 @@ const Home = ({ navigation }) => {
           if (res.rows.length == 0) {
             tx.executeSql('DROP TABLE IF EXISTS table_trip', []);
             tx.executeSql(
-              'CREATE TABLE IF NOT EXISTS table_trip(_id INTEGER PRIMARY KEY AUTOINCREMENT, trip_name VARCHAR(20) NOT NULL, trip_destination VARCHAR(20) NOT NULL, trip_datetime VARCHAR(20) NOT NULL, trip_assessment VARCHAR(20) NOT NULL, trip_description VARCHAR(20))',
+              'CREATE TABLE IF NOT EXISTS table_trip' +
+                '(_id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
+                'trip_name VARCHAR(20) NOT NULL, ' +
+                'trip_destination VARCHAR(20) NOT NULL, ' +
+                'trip_datetime VARCHAR(20) NOT NULL, ' +
+                'trip_assessment VARCHAR(20) NOT NULL, ' +
+                'trip_description VARCHAR(20))',
               []
             );
           }
@@ -133,17 +139,6 @@ const Home = ({ navigation }) => {
           elevation: 12,
         }}
       >
-        {/* <View>
-            <Text
-              style={{
-                fontSize: 30,
-                fontStyle: 'bold',
-                textAlign: 'justify',
-              }}
-            >
-              {item._id}
-            </Text>
-          </View> */}
         <View>
           <Text
             style={{
@@ -172,7 +167,7 @@ const Home = ({ navigation }) => {
               color: '#808080',
             }}
           >
-            Datetime: {item.datetime}
+            Datetime: {item.trip_datetime}
           </Text>
           <Text
             style={{

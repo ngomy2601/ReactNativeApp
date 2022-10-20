@@ -24,6 +24,22 @@ const AddTrip = ({ navigation }) => {
   let [textInputDescription, settextInputDescription] = useState('');
 
   const addTrip = () => {
+    if (!textInputName) {
+      alert('Please fill name');
+      return;
+    }
+    if (!textInputDestination) {
+      alert('Please fill destination');
+      return;
+    }
+    if (!textInputDate) {
+      alert('Please fill date');
+      return;
+    }
+    if (!textInputAssessment) {
+      alert('Please fill Yes/No');
+      return;
+    }
     myDB.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO table_trip (trip_name, trip_destination, trip_datetime, trip_assessment, trip_description) VALUES (?,?,?,?,?)',
