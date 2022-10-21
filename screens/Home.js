@@ -204,7 +204,7 @@ const Home = ({ navigation }) => {
                 id: item._id,
                 name: item.trip_name,
                 destination: item.trip_destination,
-                datetime: item.datetime,
+                datetime: item.trip_datetime,
                 assessment: item.trip_assessment,
                 description: item.trip_description,
               })
@@ -222,7 +222,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     createTripTable();
     getTripData();
-  }, []);
+  }, [flatListItems]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
       <View>
