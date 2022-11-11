@@ -7,6 +7,7 @@ import {
   TextInput,
   Text,
   Button,
+  Pressable,
 } from 'react-native';
 
 const openDatabase = () => {
@@ -23,6 +24,22 @@ const AddTrip = ({ navigation }) => {
   let [textInputDescription, settextInputDescription] = useState('');
 
   const addTrip = () => {
+    if (!textInputName) {
+      alert('Please fill name');
+      return;
+    }
+    if (!textInputDestination) {
+      alert('Please fill destination');
+      return;
+    }
+    if (!textInputDate) {
+      alert('Please fill date');
+      return;
+    }
+    if (!textInputAssessment) {
+      alert('Please fill Yes/No');
+      return;
+    }
     myDB.transaction((tx) => {
       tx.executeSql(
         'INSERT INTO table_trip (trip_name, trip_destination, trip_datetime, trip_assessment, trip_description) VALUES (?,?,?,?,?)',
@@ -55,8 +72,7 @@ const AddTrip = ({ navigation }) => {
     });
   };
   return (
-    <SafeAreaView>
-      <Text style={styles.titleText}>ADD A NEW TRIP</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
       <Text style={styles.baseText}>Trip Name:</Text>
       <TextInput
         style={styles.input}
@@ -87,7 +103,27 @@ const AddTrip = ({ navigation }) => {
         placeholder="Enter the description"
         onChangeText={(value) => settextInputDescription(value)}
       />
-      <Button title="Add" color="#0000ff" onPress={addTrip} />
+      <Pressable
+        style={{
+          backgroundColor: '#F9813A',
+          margin: 10,
+          borderRadius: 15,
+        }}
+        onPress={addTrip}
+      >
+        <Text
+          style={{
+            padding: 10,
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: 'white',
+          }}
+        >
+          ADD TO DATABASE
+        </Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -97,13 +133,15 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 5,
+    borderColor: '#808080',
+    borderRadius: 15,
   },
   baseText: {
     paddingTop: 10,
     paddingLeft: 10,
-    fontFamily: 'Cochin',
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#808080',
   },
   titleText: {
     paddingTop: 10,

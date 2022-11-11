@@ -7,6 +7,7 @@ import {
   TextInput,
   Text,
   Button,
+  Pressable,
 } from 'react-native';
 const openDatabase = () => {
   const myDB = SQLite.openDatabase('database.db');
@@ -59,8 +60,7 @@ const UpdateTrip = ({ route, navigation }) => {
     });
   };
   return (
-    <SafeAreaView>
-      <Text style={styles.titleText}>UPDATE TRIP</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
       <Text style={styles.baseText}>Trip Name:</Text>
       <TextInput
         style={styles.input}
@@ -91,7 +91,27 @@ const UpdateTrip = ({ route, navigation }) => {
         defaultValue={description}
         onChangeText={settextInputDescription}
       />
-      <Button title="UPDATE" color="#0000ff" onPress={updateTripData} />
+      <Pressable
+        style={{
+          backgroundColor: '#F9813A',
+          margin: 10,
+          borderRadius: 15,
+        }}
+        onPress={updateTripData}
+      >
+        <Text
+          style={{
+            padding: 10,
+            textTransform: 'uppercase',
+            textAlign: 'center',
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: 'white',
+          }}
+        >
+          UPDATE
+        </Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -101,13 +121,15 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 5,
+    borderColor: '#808080',
+    borderRadius: 15,
   },
   baseText: {
     paddingTop: 10,
     paddingLeft: 10,
-    fontFamily: 'Cochin',
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#808080',
   },
   titleText: {
     paddingTop: 10,
